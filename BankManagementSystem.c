@@ -30,12 +30,10 @@ void create_new_account() { //creates new account and puts it in the file
     infile = fopen("Bank.Database", "w");
     int choice;
     printf("Create New Account\n");
-    printf("Please Enter Today's Date\n");
-    scanf("%d/%d/%d\n", &add.deposit.month, &add.deposit.day, &add.deposit.year); //you have to include & for some reason when its an integer
     printf("Please Enter The Account Number\n");
     scanf("%d\n", &check.account_number);
-    while(fscanf(infile,"Account Number: %d | Name: %s | Email: %s | Birth Date: %d/%d/%d | Age: %d | Phone Number: %d | Address: %s | Citizenship: %s | Savings: %f | Checkings: %f | Account Type: %s | Pin: %d\n",&add.account_number,add.name,add.email,&add.date_of_birth.month,
-                    &add.account_number,add.name,add.email,&add.date_of_birth.month,&add.date_of_birth.day,&add.date_of_birth.year,&add.age,&add.phone,add.address,add.citizenship,&add.savings, &add.checkings,add.account_type, &add.pin)!= EOF) { //fscanf() reads formatted input from the file(stream)
+    char line[1000];
+    while(fgets(line, sizeof(line), infile)) {
         if (check.account_number != add.account_number) {
             printf("Ready to create account!\n");
             printf("Enter Name:  \n");
@@ -94,10 +92,8 @@ void delete_customer(void) {
     printf("Delete Account\n");
     printf("Please Enter Account Number To Delete \n");
     scanf("%d\n", &rem.account_number);
-    while (fscanf(old_file,"Account Number: %d | Name: %s | Email: %s | Birth Date: %d/%d/%d | Age: %d | Phone Number: %d | Address: %s | Citizenship: %s | Savings: %f | Checkings: %f | Account Type: %s | Pin: %d\n",&add.account_number,add.name,add.email,
-            &add.date_of_birth.month,
-            &add.date_of_birth.day,&add.date_of_birth.year,&add.age,&add.phone,add.address,add.citizenship,&add.savings, &add.checkings,
-            add.account_type, &add.pin)!=EOF) {
+    char line[100000];
+    while (fgets(line, sizeof(line), old_file)) {
                 if (rem.account_number != add.account_number) {
                     fprintf(new_file, "Account Number: %d | Name: %s | Email: %s | Birth Date: %d/%d/%d | Age: %d | Phone Number: %d | Address: %s | Citizenship: %s | Savings: %f | Checkings: %f | Account Type: %s | Pin: %d\n",
                     &add.account_number,add.name,add.email,
@@ -131,12 +127,9 @@ int trans() {
     scanf("%d\n", &transaction.account_number);
     printf("Please Enter Your Pin\n");
     scanf("%d\n", &transaction.pin);
+    char line[100];
     if (transaction.pin == add.pin) {
-        while(fscanf(infile,"Account Number: %d | Name: %s | Email: %s | Birth Date: %d/%d/%d | Age: %d | Phone Number: %d | Address: %s | Citizenship: %s | Savings: %f | Checkings: %f | Account Type: %s | Pin: %d\n",
-                    &add.account_number,add.name,add.email,
-                    &add.date_of_birth.month,
-                    &add.date_of_birth.day,&add.date_of_birth.year,&add.age,&add.phone,add.address,add.citizenship,&add.savings, &add.checkings,
-                    add.account_type, &add.pin)!=EOF) {
+        while(fgets(line, sizeof(line), infile)) {
                     if (transaction.account_number == add.account_number && transaction.pin == add.pin) {
                         printf("Enter 1 for checkings and 2 for savings.\n"); //make this so if account type if checkings or savings
                         scanf("%d\n", &option);//Another If Else Statement For Checking Or Savings
@@ -195,7 +188,6 @@ int trans() {
                         }
                         else {
                             printf("Please Try Again\n");
-                            trans();
                         }
     
                     }
@@ -206,10 +198,6 @@ int trans() {
                                 &add.date_of_birth.day,&add.date_of_birth.year,&add.age,&add.phone,add.address,add.citizenship,&add.savings, &add.checkings,
                                 add.account_type, &add.pin);
                         }
-                    
-                    else {
-                        printf("Account Not Found\n");
-                    }
             }
     }}
     else {
