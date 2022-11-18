@@ -58,7 +58,7 @@ void create_new_account(void) { //creates new account and puts it in the file
             if (decision == 0) {
                 add.checkings += transaction.checkings;
             }
-            if else (decision == 1) {
+            else if (decision == 1) {
                 add.savings += transaction.checkings;
             }
             else {
@@ -249,7 +249,7 @@ void upd(void) { //the loop might not be right.  It inputs 0 or 1 otherwise it w
                                     &add.account_number,add.name,add.email,
                                     &add.date_of_birth.month,
                                     &add.date_of_birth.day,&add.date_of_birth.year,&add.age,&add.phone,add.address,add.citizenship,&add.savings, &add.checkings,
-                                    ,add.account_type, &add.pin);
+                                    add.account_type, &add.pin);
                                 printf("Name Successfully Updated\n");
                             case 2: printf("Please Enter Email:  \n");
                                 scanf("%s\n", update.email);
@@ -340,11 +340,11 @@ void upd(void) { //the loop might not be right.  It inputs 0 or 1 otherwise it w
                                 add.date_of_birth.day,add.date_of_birth.year,add.age,add.phone,add.address,add.citizenship
                                 ,add.account_type, add.pin);
                 }
-    }
+    
     fclose(old_file);
     fclose(new_file);
     remove("Bank.Database");
-    rename("New.Bank.Database", "Bank.Database"); 
+    rename("New.Bank.Database","Bank.Database"); 
 
 }
 
