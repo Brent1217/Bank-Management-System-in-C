@@ -32,13 +32,13 @@ void create_new_account() { //creates new account and puts it in the file
     printf("Create New Account\n");
     printf("Please Enter The Account Number\n");
     scanf("%d\n", &check.account_number);
-    char line[1000];
-    while(fgets(line, sizeof(line), infile)) {
+    char line[100000];
+    while (fgets(line, sizeof(line), infile)) {
         if (check.account_number != add.account_number) {
             printf("Ready to create account!\n");
             printf("Enter Name:  \n");
             scanf("%s\n", add.name);
-            printf("Please Enter Birth Date In Format (Month/Date/Year)\n");
+            printf("Please Enter Birth Date In Format (Month/Date/Year):\n");
             scanf("%d/%d/%d\n", &add.date_of_birth.month, &add.date_of_birth.day, &add.date_of_birth.year);
             printf("Enter Age:  \n");
             scanf("%d\n", add.age);
@@ -91,30 +91,25 @@ void delete_customer(void) {
     new_file = fopen("New.Bank.Database", "w");
     printf("Delete Account\n");
     printf("Please Enter Account Number To Delete \n");
-    scanf("%d\n", &rem.account_number);
+    scanf("%d\n", &rem.account_number); //store the account number to remove
     char line[100000];
     while (fgets(line, sizeof(line), old_file)) {
-                if (rem.account_number != add.account_number) {
+                if (rem.account_number != add.account_number) { //as we go down the line and don't see the acct num to rem
                     fprintf(new_file, "Account Number: %d | Name: %s | Email: %s | Birth Date: %d/%d/%d | Age: %d | Phone Number: %d | Address: %s | Citizenship: %s | Savings: %f | Checkings: %f | Account Type: %s | Pin: %d\n",
                     &add.account_number,add.name,add.email,
                     &add.date_of_birth.month,
                     &add.date_of_birth.day,&add.date_of_birth.year,&add.age,&add.phone,add.address,add.citizenship,&add.savings, &add.checkings,
                     add.account_type, &add.pin);
                 }
-                else {
-                    printf("No account found\n");
-                    break;
-                    
-                }
             }
-            printf("Successfully Deleted!\n");
-            fclose(old_file);
-            fclose(new_file);
-            remove("Bank.Database");
-            rename("New.Bank.Database", "Bank.Database"); 
+    printf("awe");
+    fclose(old_file);
+    fclose(new_file);
+    remove("Bank.Database");
+    rename("New.Bank.Database", "Bank.Database"); 
 }
 
-int trans() {
+int trans() { //when you get the pin and acct num wrong it just exits
     int reply;
     int option;
     int deposit = 0;
@@ -129,7 +124,7 @@ int trans() {
     scanf("%d\n", &transaction.pin);
     char line[100];
     if (transaction.pin == add.pin) {
-        while(fgets(line, sizeof(line), infile)) {
+        while(fgets(line, sizeof(line), infile)) { //keep looping until it hits the last line
                     if (transaction.account_number == add.account_number && transaction.pin == add.pin) {
                         printf("Enter 1 for checkings and 2 for savings.\n"); //make this so if account type if checkings or savings
                         scanf("%d\n", &option);//Another If Else Statement For Checking Or Savings
@@ -158,6 +153,7 @@ int trans() {
                                 &add.date_of_birth.day,&add.date_of_birth.year,&add.age,&add.phone,add.address,add.citizenship,&add.savings, &add.checkings,
                                 add.account_type, &add.pin); 
                                 printf("Successfully Withdrew %d\n", transaction.checkings);
+                                
                         }
                         }
                             else if (option == 2) {
@@ -186,8 +182,8 @@ int trans() {
                                     add.account_type, &add.pin); 
                                     printf("Successfully Withdrew %d\n", transaction.savings);
                         }
-                        else {
-                            printf("Please Try Again\n");
+                                else {
+                                    printf("Please Try Again\n");
                         }
     
                     }
@@ -206,7 +202,8 @@ int trans() {
         fclose(infile);
         fclose(new_file);
         remove("Bank.Database");
-        rename("New.Bank.Database", "Bank.Database"); 
+        rename("New.Bank.Database", "Bank.Database");
+
 }
 
 
@@ -237,3 +234,4 @@ int main(void) {
     
     }
 }
+
