@@ -25,7 +25,7 @@ struct{
 } add, update, rem, transaction, check, display; //deposit and withdraw are transaction only not add or remove
 
 
-void create_new_account(void) { //creates new account and puts it in the file
+void create_new_account() { //creates new account and puts it in the file
     FILE *infile;
     infile = fopen("Bank.Database", "w");
     int choice;
@@ -63,7 +63,6 @@ void create_new_account(void) { //creates new account and puts it in the file
             }
             else {
                 printf("Please try again\n");
-                create_new_account();
             }
             printf("Enter Account Type:  ");
             scanf("%s\n", add.account_type);
